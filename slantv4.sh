@@ -98,23 +98,41 @@
           hide_ext_ips='yes'                                                                            # (Yes) Displays only LAN IPs (No) Displays LAN and WAN IPs
 
 #__ NMap Scan Variables ___________________________________________________________________________
-          do_sub_scan="no"                                                  # (yes/no) Run Scan for Sub Networks
+                      # Sub Scan - Scan for other address ranges (yes/no) Run Scan for Sub Networks
+          do_sub_scan="no"
+                      # Host Scan - Scan for Hostnames
             host_scan="host"
+                      # Ping Sweep - Ping LAN for up end points
       ping_sweep_scan=" -T3 -sP -sn -n --stats-every 10s "
+                      # Host Discovery Scan - Redundant
        host_disc_scan=" -T2 -sP -n --stats-every 10s "
+                      # Aggressive Router Scan - Aggressively scans when sLANt decides its the gateway
       agg_router_scan=" -A -p U:161,1900,T:21-23,25,80,443,587,8080 -O --stats-every 10s "
+                      # Aggressive Scan - Aggressively scans when sLANt decides its an end point other than gateway
              agg_scan=" -A -sV --open -O --osscan-guess --version-intensity 9 --host-timeout 100m --min-hostgroup 100 --max-rtt-timeout 600ms --initial-rtt-timeout=300ms --min-rtt-timeout 300ms --max-retries 8 --min-rate 150 --stats-every 10s -g 53 "
+                      # Aggressive No Ping Router Scan - Aggressively scans without ping when sLANt decides its the gateway
    agg_np_router_scan=" -Pn -sSV -sUV -p U:161,1900,T:21-23,25,80,443,587,8080 -sT -O --stats-every 10s "
+                      # Aggressive No Ping Scan - Aggressively scans without ping when sLANt decides its an end point other than gateway
           agg_np_scan=" -Pn -sSV -sUV -p U:53,67-69,79,123,135,137-139,161,162,500,514,520,523,631,998,1434,1701,1900,4500,5353,6481,17185,31337,49152,49154,T:13,21-23,25,37,42,49,53,67,69,79-81,88,105,109-111,113,123,135,137-139,143,161,179,222,384,389,407,443,445,465,500,512-515,523,524,540,548,554,617,623,631,689,705,783,873,910,912,921,993,995,1000,1024,1050,1080,1099,1100,1158,1220,1300,1311,1344,1352,1433-1435,1494,1521,1524,1533,1581-1582,1604,1720,1723,1755,1900,2000,2049,2100,2103,2121,2202,2207,2222,2323,2380,2525,2533,2598,2628,2638,2947,2967,3000,3031,3050,3057,3128,3260,3306,3333,3389,3500,3628,3632,3690,3780,3790,4000,4369,4445,5019,5051,5060-5061,5093,5168,5250,5353,5400,5405,5432-5433,5554-5555,5666,5672,5800,5850,5900-5910,5984,6000-6005,6050,6060,6070,6080,6101,6106,6112,6379,6405,6502-6504,6660,6666-6667,6697,7080,7144,7210,7510,7634,7777,7787,8000,8008-8009,8028,8030,8080-8081,8090,8091,8180,8222,8300,8332-8333,8400,8443-8444,8787,8800,8880,8888,8899,9080-9081,9090,9100,9111,9152,9160,9999-10000,10050,10202-10203,10443,10616,10628,11000,11211,12174,12203,12345,13500,14330,17185,18881,19150,19300,19810,20031,20222,22222,25000,25025,26000,26122,27017,28222,30000,35871,38292,41025,41523-41524,41364,44334,48992,49152,49663,50000-50004,50013,50030,50060,50070,50075,50090,57772,59034,60010,60030,62078,62514,65535 --open --script smb-os-discovery,smb-system-info,banner -O --osscan-guess --max-os-tries 1 --version-intensity 0 --host-timeout 5m --min-hostgroup 100 --max-rtt-timeout 600ms --initial-rtt-timeout=300ms --min-rtt-timeout 300ms --max-retries 3 --min-rate 150 --stats-every 10s -g 53 "
+                      # Normal Router Scan - 
       nor_router_scan=" --stats-every 10s "
+                      # Normal Scan - Runs NMAP with default settings
              nor_scan=" --stats-every 10s "
+                      # Normal Router Scan - Runs NMAP with default setting
    nor_np_router_scan=" -Pn --stats-every 10s "
+                      # Normal Scan Without Ping - Runs NMAP with -Pn
           nor_np_scan=" -Pn --stats-every 10s "
+                      # Minimal Scan - Only checks ports 21-23,80,443,8080
              min_scan=" -Pn -p T:21-23,80,443,8080 --stats-every 10s "
+                      # Slow Router Scan - Full scan of router
       slo_router_scan=" -sT -sV -sU -p U:53,161,1900,T:21-23,25,80,443,587,8080,49152 --script snmp-sysdescr.nse,upnp-info,http-default-accounts -O --stats-every 10s "
+                      # Slow Scan - Full scan of end point other than gateway
              slo_scan=' -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" --stats-every 10s '                                             # Comprehensive Scan
-            frag_scan=" -D microsoft.com -sS -sV -T1 -f -mtu=24 -data-length=1228 --stats-every 10s"                        # Fragmented for IDS Evasion
+                      # Fragmented Scan - IDS Evasion
+            frag_scan=" -D microsoft.com -sS -sV -T1 -f -mtu=24 -data-length=1228 --stats-every 10s" 
+                      # Vulnerability Scan - Unsafe
      vuln_unsafe_scan=" -Pn -n --open -p139 --script=smb-check-vulns --script-args=unsafe=1 --stats-every 10s "
+                      # Vulnerability Scan - Safe
        vuln_safe_scan=" -Pn -n --open -p139 --script=smb-check-vulns --script-args=unsafe=0 --stats-every 10s "
 
 #__ Nothing Below This Line _______________________________________________________________________
