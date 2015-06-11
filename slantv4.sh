@@ -1,6 +1,8 @@
 #!/bin/bash
 # set -x
 
+# A ThrustForth Production
+
 # SLANT - Small Local Area Network Testing
 
 # Script Info
