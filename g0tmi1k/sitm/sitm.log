@@ -1,0 +1,4 @@
+---------------------------------------------------------------------------------------------
+ERROR: action (Error code: free): Scanning Targets, -e, nmap 192.168.2.0/23 -e eth0 -n -sP -sn | tee /tmp/sitm.tmp, , 
+---------------------------------------------------------------------------------------------
+ERROR: action (Error code: free): Scanning Targets, -e, nmap 192.168.2.0/23 -e eth0 -n -sP -sn | tee /tmp/sitm.tmp, , 

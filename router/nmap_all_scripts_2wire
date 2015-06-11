@@ -1,0 +1,364 @@
+NSE: Active NSE Script Threads: 1 (1 waiting)
+
+NSE Timing: About 98.73% done; ETC: 20:29 (0:00:00 remaining)
+Stats: 0:00:40 elapsed; 0 hosts completed (0 up), 0 undergoing Script Pre-Scan
+NSE: Active NSE Script Threads: 1 (1 waiting)
+
+NSE Timing: About 98.73% done; ETC: 20:29 (0:00:01 remaining)
+Completed NSE at 20:29, 40.02s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+NSE: Starting runlevel 3 (of 3) scan.
+Pre-scan script results:
+| broadcast-eigrp-discovery: 
+|_ ERROR: Couldn't get an A.S value.
+| broadcast-igmp-discovery: 
+|   192.168.2.198
+|     Interface: wlan0
+|     Version: 2
+|     Group: 224.0.0.251
+|   192.168.2.198
+|     Interface: wlan0
+|     Version: 2
+|     Group: 224.0.0.253
+|   192.168.2.198
+|     Interface: wlan0
+|     Version: 2
+|     Group: 239.192.152.143
+|   192.168.2.198
+|     Interface: wlan0
+|     Version: 2
+|     Group: 239.255.255.250
+|_  Use the newtargets script-arg to add the results as targets
+| broadcast-listener: 
+|   ether
+|       ARP Request
+|         sender ip    sender mac         target ip
+|         0.0.0.0      00:17:EB:82:44:3A  192.168.2.199
+|         192.168.2.1  00:19:5B:02:B6:E4  192.168.2.197
+|       OSPF Hello
+|         
+|       EIGRP Update
+|         
+|   udp
+|       SSDP
+|         ip                         uri
+|_        fe80::5c55:452f:77f8:fb11  urn:Microsoft Windows Peer Name Resolution Protocol: V4:IPV6:LinkLocal
+| broadcast-netbios-master-browser: 
+| ip             server        domain
+| 192.168.2.198  MINE-PC       MINE
+|_192.168.2.197  NAS-A0-4F-0A  VOLUME
+| broadcast-pppoe-discover: 
+|_  ERROR: Failed to get source MAC address
+| broadcast-upnp-info: 
+|   192.168.2.197
+|       Server: RAIDiator OS UPnP/1.0 upnpd/1.0
+|       Location: http://192.168.2.197:50000/rootDesc.xml
+|   192.168.2.1
+|       Server: ipOS/7.6 UPnP/1.0 Ubicom/1.0
+|       Location: http://192.168.2.1/root.sxml
+|   192.168.2.198
+|       Server: Microsoft-Windows-NT/5.1 UPnP/1.0 UPnP-Device-Host/1.0
+|       Location: http://192.168.2.198:2869/upnphost/udhisapi.dll?content=uuid:deae149a-a8f1-4c13-bd85-5e6dbd0811a8
+|_        Webserver: Microsoft-HTTPAPI/2.0
+| broadcast-wpad-discover: 
+|_  ERROR: Could not find WPAD using DNS/DHCP
+| broadcast-wsdd-discover: 
+|   Devices
+|     192.168.2.189
+|         Message id: 1e219ebb-fe8f-46f2-a18b-e39f3a4df632
+|         Address: http://192.168.2.189:5357/e7a42e6b-7724-4773-bf66-fbcfdfa961b8/
+|         Type: Device pub:Computer
+|     192.168.2.198
+|         Message id: c9d10f40-118c-4a4c-ad8a-523c1abef3ba
+|         Address: http://192.168.2.198:5357/75c7ac56-fe0e-4e40-bc23-ec8460ff716b/
+|_        Type: Device pub:Computer
+|_eap-info: please specify an interface with -e
+| http-icloud-findmyiphone: 
+|_  ERROR: No username or password was supplied
+| http-icloud-sendmsg: 
+|_  ERROR: No username or password was supplied
+| http-virustotal: 
+|_  ERROR: An API key is required in order to use this script (see description)
+| lltd-discovery: 
+|   192.168.2.1
+|     Hostname: D-Link Systems 
+|     Mac: 00:19:5b:02:b6:e4 (D-Link)
+|   192.168.2.197
+|     Hostname: nas-A0-4F-0A
+|     Mac: e0:46:9a:a0:4f:0a (Netgear)
+|   192.168.2.198
+|     Hostname: mine-PC
+|     Mac: 00:23:54:09:07:46 (Asustek Computer)
+|     IPv6: fe80:0000:0000:0000:5c55:452f:77f8:fb11
+|_  Use the newtargets script-arg to add the results as targets
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
+Initiating Ping Scan at 20:29
+Scanning 192.168.1.254 [4 ports]
+Completed Ping Scan at 20:29, 0.01s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 20:29
+Completed Parallel DNS resolution of 1 host. at 20:29, 0.01s elapsed
+Initiating SYN Stealth Scan at 20:29
+Scanning homeportal (192.168.1.254) [1000 ports]
+Discovered open port 80/tcp on 192.168.1.254
+Discovered open port 443/tcp on 192.168.1.254
+Completed SYN Stealth Scan at 20:29, 4.41s elapsed (1000 total ports)
+NSE: Script scanning 192.168.1.254.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 20:29
+...
+Completed NSE at 21:36, 4013.95s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 21:36
+Completed NSE at 21:36, 0.20s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Nmap scan report for homeportal (192.168.1.254)
+Host is up (0.084s latency).
+Scanned at 2012-12-10 20:29:29 PST for 4019s
+Not shown: 998 closed ports
+PORT    STATE SERVICE
+80/tcp  open  http
+|_citrix-brute-xml: FAILED: No domain specified (use ntdomain argument)
+| http-auth-finder: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=homeportal
+|   url                                method
+|   http://homeportal/xslt?PAGE=C_2_1  FORM
+|   http://homeportal/xslt?PAGE=C_5_7  FORM
+|_  http://homeportal/xslt?PAGE=C_0_1  FORM
+| http-brute:   
+|_  Path "/" does not require authentication
+|_http-chrono: Request times for /; avg: 1666.34ms; min: 908.84ms; max: 4152.72ms
+|_http-date: Tue, 11 Dec 2012 05:31:49 GMT; +1h02m15s from local time.
+| http-domino-enum-passwords:   
+|_  ERROR: No valid credentials were found (see domino-enum-passwords.username and domino-enum-passwords.password)
+|_http-drupal-modules: 
+| http-email-harvest: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=homeportal
+|_  sam@conio.net
+| http-exif-spider: 
+|   http://homeportal/icons/gauge.jpg
+|     Date: 2008:01:18 15:03:17
+|   http://homeportal/icons/wireless.jpg
+|     Date: 2008:01:18 15:03:58
+|   http://homeportal/icons/3xxx.jpg
+|     Date: 2008:01:18 15:05:39
+|   http://homeportal/icons/shield.jpg
+|_    Date: 2008:01:18 15:04:40
+| http-form-brute: 
+|_  ERROR: No passvar was specified (see http-form-brute.passvar)
+|_http-frontpage-login: false
+|_http-google-malware: [ERROR] No API key found. Update the variable APIKEY in http-google-malware or set it in the argument http-google-malware.api
+| http-grep: 
+|_  ERROR: Argument http-grep.match was not set
+| http-headers: 
+|   Date: Tue, 11 Dec 2012 05:31:58 GMT
+|   Server: 2wire Gateway
+|   Cache-Control: no-cache
+|   Pragma: no-cache
+|   Transfer-Encoding: chunked
+|   Content-Type: text/html
+|   Connection: Close
+|   
+|_  (Request type: GET)
+|_http-iis-webdav-vuln: ERROR: This web server is not supported.
+|_http-litespeed-sourcecode-download: Page: /index.php was not found. Try with an existing file.
+|_http-malware-host: Host appears to be clean
+|_http-methods: No Allow or Public header in OPTIONS response (status code 404)
+| http-php-version: Logo query returned unknown hash 80847af2118294feb1c31e0beb6d8b77
+|_Credits query returned unknown hash 80847af2118294feb1c31e0beb6d8b77
+| http-sitemap-generator: 
+|   Directory structure:
+|     /
+|       Other: 2
+|     /css/
+|       css: 1
+|     /icons/
+|       gif: 2; jpg: 5
+|     /javascript/
+|       js: 2
+|   Longest directory structure:
+|     Depth: 1
+|     Dir: /icons/
+|   Total files found (by extension):
+|_    Other: 2; css: 1; gif: 2; jpg: 5; js: 2
+|_http-slowloris: false
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: VULNERABLE
+|     Description:
+|       Slowloris tries to keep many connections to the target web server open and hold them open as long as possible.
+|       It accomplishes this by opening connections to the target web server and sending a partial request. By doing 
+|       so, it starves the http server's resources causing Denial Of Service. 
+|       		
+|     Disclosure date: 2009-09-17
+|     References:
+|_      http://ha.ckers.org/slowloris/
+|_http-sql-injection: ERROR: Script execution failed (use -d to debug)
+|_http-title: Site doesn't have a title (text/html).
+| http-vhosts: 
+| 27 names had status 302
+|_web2test.homeportal
+|_http-wordpress-enum: [Error] Wordpress installation was not found. We couldn't find wp-login.php
+|_http-wordpress-plugins: nothing found amongst the 100 most popular plugins, use --script-args http-wordpress-plugins.search=<number|all> for deeper analysis)
+443/tcp open  https
+|_citrix-brute-xml: FAILED: No domain specified (use ntdomain argument)
+| http-auth-finder: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=homeportal
+|   url                                 method
+|   https://homeportal/xslt?PAGE=C_0_1  FORM
+|   https://homeportal/xslt?PAGE=C_2_1  FORM
+|_  https://homeportal/xslt?PAGE=C_5_7  FORM
+| http-brute:   
+|_  Path "/" does not require authentication
+|_http-chrono: Request times for /; avg: 5637.30ms; min: 1465.58ms; max: 8783.95ms
+|_http-date: Tue, 11 Dec 2012 04:29:36 GMT; +2s from local time.
+| http-domino-enum-passwords:   
+|_  ERROR: No valid credentials were found (see domino-enum-passwords.username and domino-enum-passwords.password)
+| http-email-harvest: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=homeportal
+|_  sam@conio.net
+| http-enum: 
+|_  /login.html: Possible admin folder
+| http-exif-spider: 
+|   https://homeportal/icons/gauge.jpg
+|     Date: 2008:01:18 15:03:17
+|   https://homeportal/icons/wireless.jpg
+|     Date: 2008:01:18 15:03:58
+|   https://homeportal/icons/shield.jpg
+|     Date: 2008:01:18 15:04:40
+|   https://homeportal/icons/3xxx.jpg
+|_    Date: 2008:01:18 15:05:39
+| http-form-brute: 
+|_  ERROR: No passvar was specified (see http-form-brute.passvar)
+|_http-frontpage-login: false
+|_http-google-malware: [ERROR] No API key found. Update the variable APIKEY in http-google-malware or set it in the argument http-google-malware.api
+| http-grep: 
+|_  ERROR: Argument http-grep.match was not set
+| http-headers: 
+|   Date: Tue, 11 Dec 2012 05:33:02 GMT
+|   Server: 2wire Gateway
+|   Cache-Control: no-cache
+|   Pragma: no-cache
+|   Transfer-Encoding: chunked
+|   Content-Type: text/html
+|   Connection: Close
+|   
+|_  (Request type: GET)
+|_http-iis-webdav-vuln: ERROR: This web server is not supported.
+|_http-litespeed-sourcecode-download: Page: /index.php was not found. Try with an existing file.
+|_http-malware-host: Host appears to be clean
+|_http-methods: No Allow or Public header in OPTIONS response (status code 404)
+| http-php-version: Logo query returned unknown hash 80847af2118294feb1c31e0beb6d8b77
+|_Credits query returned unknown hash 80847af2118294feb1c31e0beb6d8b77
+| http-sitemap-generator: 
+|   Directory structure:
+|     /
+|       Other: 2
+|     /css/
+|       css: 1
+|     /javascript/
+|       js: 2
+|   Longest directory structure:
+|     Depth: 1
+|     Dir: /javascript/
+|   Total files found (by extension):
+|_    Other: 2; css: 1; js: 2
+|_http-slowloris: false
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: VULNERABLE
+|     Description:
+|       Slowloris tries to keep many connections to the target web server open and hold them open as long as possible.
+|       It accomplishes this by opening connections to the target web server and sending a partial request. By doing 
+|       so, it starves the http server's resources causing Denial Of Service. 
+|       		
+|     Disclosure date: 2009-09-17
+|     References:
+|_      http://ha.ckers.org/slowloris/
+|_http-title: Site doesn't have a title (text/html).
+| http-vhosts: 
+| 26 names had status 302
+| intranet.homeportal
+|_test2.homeportal
+|_http-wordpress-enum: [Error] Wordpress installation was not found. We couldn't find wp-login.php
+| ssl-cert: Subject: commonName=gateway.2wire.net/organizationName=2Wire/countryName=US/organizationalUnitName=Gateway Device
+| Issuer: commonName=Gateway Authentication/organizationName=2Wire/countryName=US/organizationalUnitName=Gateway Device/serialNumber=431119084197
+| Public Key type: rsa
+| Public Key bits: 1024
+| Not valid before: 2011-10-29T09:21:31+00:00
+| Not valid after:  2026-11-24T10:21:31+00:00
+| MD5:   cbe2 3d07 3ec2 a2ed 7570 060d 0131 fa3a
+| SHA-1: 069c 8e08 ee5c b3d3 9d58 99b7 ef78 ac34 0c55 ed0a
+| -----BEGIN CERTIFICATE-----
+| MIICZDCCAc2gAwIBAgICAnAwDQYJKoZIhvcNAQEFBQAwbjELMAkGA1UEBhYCVVMx
+| DjAMBgNVBAoWBTJXaXJlMRcwFQYDVQQLFg5HYXRld2F5IERldmljZTEVMBMGA1UE
+| BRYMNDMxMTE5MDg0MTk3MR8wHQYDVQQDFhZHYXRld2F5IEF1dGhlbnRpY2F0aW9u
+| MB4XDTExMTAyOTEwMjEzMVoXDTI2MTEyNDEwMjEzMVowUjELMAkGA1UEBhYCVVMx
+| DjAMBgNVBAoWBTJXaXJlMRcwFQYDVQQLFg5HYXRld2F5IERldmljZTEaMBgGA1UE
+| AxYRZ2F0ZXdheS4yd2lyZS5uZXQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGB
+| APNy6YNaYSiUWog11rrcy9Up0cYB+Ip2n+9gvCV0Z3UZ4TbyP5d8uxzoxD5W0kFV
+| G1U9ff3IiQ8uAhpC6r0N/efKU6PhwKbDjgbZWxpxHwPJKkdbbfkna75Lx70eWRg+
+| 8Wb0IEOZoo98SmflTWA/h757g/wzNHT6D0yheqL/LwCfAgMBAAGjLTArMAkGA1Ud
+| EwQCMAAwCwYDVR0PBAQDAgWgMBEGCWCGSAGG+EIBAQQEAwIGQDANBgkqhkiG9w0B
+| AQUFAAOBgQCYlsGG0/aQw2WdUaAmrNRKvx+gskKbAt965HsUY2wU+24SSocY/49H
+| MA0mP0LlfV8PzQ9DBYCbx15EMEpyM9WjAcPCSY0kLP1oe6CH0Ly2DpB6zi8cnIyQ
+| XlU0+n0idFtnOBU/P1KPA+TRXwdo7lq4unnHcA4c27ibE6pkeqPRkw==
+|_-----END CERTIFICATE-----
+|_ssl-date: 2012-12-11T05:31:28+00:00; 0s from local time.
+| ssl-enum-ciphers: 
+|   SSLv3: 
+|     ciphers: 
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA - strong
+|       TLS_RSA_WITH_AES_128_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_MD5 - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors: 
+| 
+|   TLSv1.0: 
+|     ciphers: 
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA - strong
+|       TLS_RSA_WITH_AES_128_CBC_SHA - strong
+|       TLS_RSA_WITH_AES_256_CBC_SHA - strong
+|       TLS_RSA_WITH_RC4_128_MD5 - strong
+|       TLS_RSA_WITH_RC4_128_SHA - strong
+|     compressors: 
+|       NULL
+|_  least strength: strong
+| ssl-google-cert-catalog: 
+|_  No DB entry
+
+Host script results:
+| dns-blacklist: 
+|   SPAM
+|     sbl.spamhaus.org - FAIL
+|     bl.nszones.com - FAIL
+|_    dnsbl.inps.de - FAIL
+|_dns-brute: Can't guess domain of "homeportal"; use dns-brute.domain script argument.
+|_firewall-bypass: false
+|_ipidseq: Unknown
+|_path-mtu: PMTU == 1500
+| qscan: 
+| PORT  FAMILY  MEAN (us)  STDDEV   LOSS (%)
+| 1     0       5796.90    1310.44  0.0%
+| 80    0       6464.60    1796.96  0.0%
+|_443   0       6145.80    2320.78  0.0%
+| unusual-port: 
+|_  WARNING: this script depends on Nmap's service/version detection (-sV)
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 21:36
+Completed NSE at 21:36, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 21:36
+Completed NSE at 21:36, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Post-scan script results:
+| reverse-index: 
+|   80/tcp: 192.168.1.254
+|_  443/tcp: 192.168.1.254
+Read data files from: /usr/local/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 4059.66 seconds
+           Raw packets sent: 1100 (49.832KB) | Rcvd: 1004 (51.146KB)

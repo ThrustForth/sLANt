@@ -1,0 +1,14 @@
+POST /upnp/service/WANPPPConnection HTTP/1.1
+HOST: 192.168.0.1:80
+SOAPACTION: "urn:schemas-upnp-org:service:WANPPPConnection:1#GetUserName"
+CONTENT-TYPE: text/xml ; charset="utf-8"
+Content-Length: 289
+ 
+<?xml version="1.0" encoding="utf-8"?>
+<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+<s:Body>
+<u:GetUserName
+xmlns:u="urn:schemas-upnp-org:service:WANPPPConnection:1" />
+</s:Body>
+</s:Envelope> 

