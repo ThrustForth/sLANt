@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+#set -x
 
 # A ThrustForth Production
 
@@ -88,7 +88,7 @@
    imacros_module_path="/root/Desktop/tools/router/brute/imacros"           # Path to IMacros Scripts-g 88 
            report_path="/root/Desktop/report"                               # Path to Report Output
               scan_dir="/tmp/menu/scans"                                    # Path to NMap Scan Directory
-               pay_gen="/root/Desktop/tools/avbypass/crypter.py"            # Path to Payload Generator
+               pay_gen="$(pwd)/avbypass/crypter.py"            # Path to Payload Generator
 
               userlist="/tmp/userlist"                                      # Path to User List
               passlist="$(pwd)/wordlist/default.pwd"                        # Path to Short Brute Force List
@@ -183,7 +183,7 @@ function ident() {                                                              
 #         gateway=$(hostname -i)                                                                         # Gateway IP Address Better Way
 #      fi
    fi
-   networkmask=$(ifconfig $interface | awk '/Mask/ {split ($4,A,":"); print A[2]}')                      # Netmask
+   networkmask=$(ip -o -f inet addr show | awk '/scope global/ {print $4}')                      # Netmask
    if [ ! -e "$tmp/lan_ip" ] ; then
       hostname -I | awk '{ print $1 }' > $tmp/lan_ip
    fi
@@ -217,7 +217,7 @@ domain="$(cat $tmp/domain_name)"
 
 # ip addr show |grep -w inet |grep -v 127.0.0.1|awk '{ print $2}'| cut -d "/" -f 2|head -n1       # Alternative method to get CIDR
 if [ "$interface" != "" ] && [ "$lan_ip" != "" ]; then
-   cidr=""
+   cidr="$(ip addr show |grep -w inet |grep -v 127.0.0.1|awk '{ print $2}'| cut -d "/" -f 2|head -n1)"
    ip4="${lan_ip##*.}"; x="${lan_ip%.*}" 
    ip3="${x##*.}"; x="${x%.*}"
    ip2="${x##*.}"; x="${x%.*}"
@@ -311,7 +311,7 @@ function action() {
 }
 
 function external_ip() {                                                  # External Facing IP Address
-   action "Finding WAN IP" "/usr/bin/curl --connect-timeout $wanip_timeout ifconfig.me > $tmp/wanip" "false" "1200|0|0"
+   action "Finding WAN IP" "/usr/bin/curl ifconfig.me > $tmp/wanip" "false" "1200|0|0"
    wanip="$(cat $tmp/wanip)"
    if [ "$wanip" == "" ] ; then
       echo "Unreachable" > $tmp/wanip
@@ -326,7 +326,7 @@ function external_ip() {                                                  # Exte
 }
 
 function cleanup() {                                                      # Cleanup
-   clear
+   clear -x
    banner
    $border
    echo -e "#                                       \e[01;36mOPTION TO QUIT\e[00m                                                                #"
@@ -398,7 +398,7 @@ function man_dom {                                                        # If D
 function sub_switch {                                                     # "Information" Section - Switch to target different pool of IP addresses
    rm -rf $tmp/subs
    subs="$(cat $tmp/subnets)"
-   clear
+   clear -x
    banner
    targeting="$(cat $tmp/targeting)"
    $border
@@ -431,7 +431,7 @@ function sub_switch {                                                     # "Inf
 function shares {                                                         # Enumerate Share Information
    if [ ! -e "$tmp/smbtree" ] || [ "$1" == "1" ] ; then
       if [ "$tmpsmb" == "" ] ; then
-         clear
+         clear -x
          banner
          $border
          echo -e "#                                           \e[01;36mSHARE ENUMERATION\e[00m                                                         #"
@@ -440,7 +440,7 @@ function shares {                                                         # Enum
          smbtree -N > $tmp/smbtree &
       fi
    fi
-   clear
+   clear -x
    banner
    $border
    echo -e "#                                           \e[01;36mSHARE ENUMERATION\e[00m                                                         #"
@@ -487,7 +487,7 @@ function information {                                                        # 
 #   fi
 
 
-   clear
+   clear -x
    banner
    $border
    echo -e "#                                          \e[01;36mNETWORK INFORMATION\e[00m                                                        #"
@@ -736,7 +736,7 @@ function exploit() {                                                      # Auto
 
 function payload() {                                                             # Generate AV Bypass Payload
    display action "Creating Payload and Listener"
-   action "Payload/Listener" "python $pay_gen" "true" "1200|50|20" &
+   action "Payload/Listener" "sudo python $pay_gen" "true" "1200|50|20" &
    sleep 2
    $cur_men
 }
@@ -781,7 +781,7 @@ function util() {                                                               
          targets="$(cat $tmp/list_$sub)"
       elif [[ "$menu_choice" -gt "$i" ]] ; then 
          display error "Invalid Choice - Try Again" ; sleep 1 ; $cur_men         # $i Comes From Info Function
-      elif (( "$menu_choice" <= "$i" )) ; then
+      elif (( $menu_choice <= $i )) ; then
          targets="$(cat $tmp/targets | grep -w " $menu_choice " | awk '{ print $3 }')"
       else
          aux_menu
@@ -1039,7 +1039,7 @@ function util() {                                                               
       cur_men="util "$method" $sub_method"
       netdiscover 1
    fi
-set +x
+#set +x
    $cur_men
 }
 #__ Clear Hosts _________________________________________________________________________________
@@ -1054,7 +1054,8 @@ function clear_targets() {
    main_menu
 }
 
-#__ NMap Menu _____________________________________________________________________________________
+#__ NMap Menu __
+___________________________________________________________________________________
 function nmap_menu() {                                                    # Attach to Network with DHCP
    cur_men="nmap_menu"
    info
@@ -1292,7 +1293,7 @@ function netdiscover() {                                                  # NMap
    if [ "$1" == switch ] ; then                                                             # For selecting subnet to focus on
       rm -rf $tmp/subs
       subs="$(cat $tmp/subnets)"
-      clear
+      clear -x
       banner
       targeting="$(cat $tmp/targeting)"
       $border
@@ -1376,7 +1377,7 @@ function netdiscover() {                                                  # NMap
 #__ Random MAC Address ____________________________________________________________________________
 function change_ident() {
 rm $tmp/iface
-clear
+clear -x
 banner
 $border
 echo -e "#                                       \e[01;36mCHOOSE INTERFACE\e[00m                                                              #"
@@ -1760,7 +1761,7 @@ function info() {                                                         # Main
       done
    done
    fi
-   clear
+   clear -x
    banner
 
 #__ Network Data __________________________________________________________________________________
@@ -1869,7 +1870,7 @@ function brute_ssid() {                                                   # SSID
 #__ Wireless Tools ________________________________________________________________________________
 function airodump() {
    # info
-   clear
+   clear -x
    banner
    $border
    echo
@@ -1898,7 +1899,7 @@ function airodump() {
 
 function monitor_mode() {
    # info
-   clear
+   clear -x
    banner 
    $border 
    echo
@@ -1921,7 +1922,7 @@ function monitor_mode() {
 
 function wireless() {
    cur_men="wireless"
-   clear
+   clear -x
    banner
    $border
    echo -e "#                                  \e[01;36mWIRELESS DATA\e[00m                                                  #"
@@ -2036,7 +2037,7 @@ function load_archive() {
    rm -rf $tmp
    mkdir $tmp && cd $tmp
    tar -xf $file
-   clear
+   clear -x
 	banner
    if [ -d "$tmp" ] ; then display info "Loading Report $file..." ; fi
    cd $wd
@@ -2089,7 +2090,7 @@ cur_men="mainmenu"
       upnp
       mainmenu
    else
-      clear
+      clear -x
       echo
       display error "Network Not Reachable"
       sleep 2
@@ -2097,7 +2098,7 @@ cur_men="mainmenu"
 }
 
 function in_help() {                                                         # Help Menu
-clear
+clear -x
 banner
    echo "VvEeHhFfIiRrSsMmCcBb
  Live Options:                     Purpose:
@@ -2128,7 +2129,7 @@ info && $cur_men
 }
 
 function help() {                                                         # Help Menu
-clear
+clear -x
 banner
 
    echo "(C)opyright 2013 Michael Clancy ~ Google Code
